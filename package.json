@@ -2,6 +2,7 @@
   "name": "monsterlessons-academy",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://whoshe.github.com/react-comments",
   "repository": {
     "type": "git",
     "url": "https://whoshe.github.com/react-comments"
