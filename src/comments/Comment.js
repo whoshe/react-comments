@@ -1,4 +1,4 @@
-import CommentForm from "./CommentForm";
+import CommentForm from './CommentForm'
 
 const Comment = ({
   comment,
@@ -14,47 +14,47 @@ const Comment = ({
   const isEditing =
     activeComment &&
     activeComment.id === comment.id &&
-    activeComment.type === "editing";
+    activeComment.type === 'editing'
   const isReplying =
     activeComment &&
     activeComment.id === comment.id &&
-    activeComment.type === "replying";
-  const fiveMinutes = 300000;
-  const timePassed = new Date() - new Date(comment.createdAt) > fiveMinutes;
+    activeComment.type === 'replying'
+  const fiveMinutes = 300000
+  const timePassed = new Date() - new Date(comment.createdAt) > fiveMinutes
   const canDelete =
-    currentUserId === comment.userId && replies.length === 0 && !timePassed;
-  const canReply = Boolean(currentUserId);
-  const canEdit = currentUserId === comment.userId && !timePassed;
-  const replyId = parentId ? parentId : comment.id;
-  const createdAt = new Date(comment.createdAt).toLocaleDateString();
+    currentUserId === comment.userId && replies.length === 0 && !timePassed
+  const canReply = Boolean(currentUserId)
+  const canEdit = currentUserId === comment.userId && !timePassed
+  const replyId = parentId ? parentId : comment.id
+  const createdAt = new Date(comment.createdAt).toLocaleDateString()
   return (
-    <div key={comment.id} className="comment">
-      <div className="comment-image-container">
-        <img src="./user-icon.png" alt='user'/>
+    <div key={comment.id} className='comment'>
+      <div className='comment-image-container'>
+        <img src={process.env.PUBLIC_URL + '/user-icon.png'} alt='user' placeholder='blur' />
       </div>
-      <div className="comment-right-part">
-        <div className="comment-content">
-          <div className="comment-author">{comment.username}</div>
+      <div className='comment-right-part'>
+        <div className='comment-content'>
+          <div className='comment-author'>{comment.username}</div>
           <div>{createdAt}</div>
         </div>
-        {!isEditing && <div className="comment-text">{comment.body}</div>}
+        {!isEditing && <div className='comment-text'>{comment.body}</div>}
         {isEditing && (
           <CommentForm
-            submitLabel="Update"
+            submitLabel='Update'
             hasCancelButton
             initialText={comment.body}
             handleSubmit={(text) => updateComment(text, comment.id)}
             handleCancel={() => {
-              setActiveComment(null);
+              setActiveComment(null)
             }}
           />
         )}
-        <div className="comment-actions">
+        <div className='comment-actions'>
           {canReply && (
             <div
-              className="comment-action"
+              className='comment-action'
               onClick={() =>
-                setActiveComment({ id: comment.id, type: "replying" })
+                setActiveComment({ id: comment.id, type: 'replying' })
               }
             >
               Reply
@@ -62,9 +62,9 @@ const Comment = ({
           )}
           {canEdit && (
             <div
-              className="comment-action"
+              className='comment-action'
               onClick={() =>
-                setActiveComment({ id: comment.id, type: "editing" })
+                setActiveComment({ id: comment.id, type: 'editing' })
               }
             >
               Edit
@@ -72,7 +72,7 @@ const Comment = ({
           )}
           {canDelete && (
             <div
-              className="comment-action"
+              className='comment-action'
               onClick={() => deleteComment(comment.id)}
             >
               Delete
@@ -81,12 +81,12 @@ const Comment = ({
         </div>
         {isReplying && (
           <CommentForm
-            submitLabel="Reply"
+            submitLabel='Reply'
             handleSubmit={(text) => addComment(text, replyId)}
           />
         )}
         {replies.length > 0 && (
-          <div className="replies">
+          <div className='replies'>
             {replies.map((reply) => (
               <Comment
                 comment={reply}
@@ -105,7 +105,7 @@ const Comment = ({
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Comment;
+export default Comment
